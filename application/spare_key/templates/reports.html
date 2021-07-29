@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="lower mt-4">
+      <table class="table table-success table-striped table-hover">
+        <tr>
+          <th>Branch</th>
+          <th>ID</th>
+          <th>Loan No</th>
+          <th>Name</th>
+          <th>Expected DOR</th>
+          <th>Remarks</th>
+        </tr>
+        {% for key in all_keys %}
+        <tr>
+        <td>{{ key.branch }}</td>
+        <td>{{ key.id }}</td>
+        <td>{{ key.loan_no }}</td>
+        <td>{{ key.name }}</td>
+        <td>{{ key.expected_date_of_return }}</td>
+        <td>{{ key.remarks }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

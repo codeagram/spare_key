@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h1>Collections</h1>
+
+<div class="">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    {{ form.loan_no.label }}
+    {{ form.loan_no }}
+    {{ form.name.label }}
+    {{ form.name }}
+  </form>
+</div>
+
+{% endblock %}

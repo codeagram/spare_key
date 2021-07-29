@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  {% if pending_keys|length > 0 %}
+  <table class="table table-success table-striped table-hover ml-4 p-4">
+    <tr>
+      <th>Branch</th>
+      <th>ID</th>
+      <th>Loan No</th>
+      <th>Name</th>
+      <th>Expected DOR</th>
+      <th>Remarks</th>
+    </tr>
+    {% for key in all_keys %}
+    <tr>
+      <td>{{ key.branch }}</td>
+      <td>{{ key.id }}</td>
+      <td>{{ key.loan_no }}</td>
+      <td>{{ key.name }}</td>
+      <td>{{ key.expected_date_of_return }}</td>
+      <td>{{ key.remarks }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="alert alert-primary">
+  <h4>No Pending Keys Found</h4>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
