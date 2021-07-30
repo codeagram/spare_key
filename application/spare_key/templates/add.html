@@ -4,7 +4,7 @@
 
 <div class="add-form mt-5">
   <form method="POST" action="" class="form-group">
-    {{ form.hidden_tag() }}
+    {{ form.csrf_token() }}
     {{ form.branch.label(class="form-label") }}
     {{ form.branch(class="form-control") }}
     {{ form.loan_no.label(class="form-label") }}

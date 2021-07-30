@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, IntegerField
+from wtforms import StringField, SelectField, SubmitField, IntegerField, HiddenField
 from wtforms.validators import Required
 from wtforms.fields.html5 import DateField
 #from .functions import get_recepients
@@ -16,7 +16,9 @@ class AddSpareKey(FlaskForm):
     for branch in branches:
         branches_tuple.append((branch, branch))
 
-    branch = SelectField("Branch", choices=branches_tuple)
+    print(branches_tuple)
+
+    branch = StringField("Branch", validators=[Required()])
     loan_no = StringField("Loan No", validators=[Required()])
     name = StringField("Name",validators=[Required()])
     recepient = SelectField("Recepient", choices=recepients)
@@ -38,3 +40,17 @@ class AddFieldOfficer(FlaskForm):
 class ChangeDefaultDays(FlaskForm):
 
     days = IntegerField("Default Days")
+
+
+class InwardKey(FlaskForm):
+
+    inward = SubmitField("Inward")
+    key_id = HiddenField()
+
+
+class ReassignKey(FlaskForm):
+
+    field_officers = [("", "Select"),("Rajkumar", "Rajkumar"), ("Kalidhas", "kalidhas"), ("Mani", "Mani")]
+    recepient = SelectField("Recepient", choices=field_officers)
+    key_id = HiddenField()
+    submit = SubmitField("Reassign")
