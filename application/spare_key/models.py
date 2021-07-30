@@ -6,7 +6,7 @@ class spare_key(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     branch = db.Column(db.String(32), nullable=False)
-    loan_no = db.Column(db.String(32), unique=True, nullable=False)
+    loan_no = db.Column(db.String(32), nullable=False)
     name = db.Column(db.String(32))
     recepient = db.Column(db.String(32))
     expected_date_of_return = db.Column(db.Date)

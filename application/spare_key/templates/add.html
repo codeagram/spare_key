@@ -6,7 +6,7 @@
   <form method="POST" action="" class="form-group">
     {{ form.csrf_token() }}
     {{ form.branch.label(class="form-label") }}
-    {{ form.branch(class="form-control") }}
+    {{ form.branch(class="form-control", id="branch") }}
     {{ form.loan_no.label(class="form-label") }}
     {{ form.loan_no(class="form-control") }}
     {{ form.name.label(class="form-label") }}

@@ -19,28 +19,30 @@ document.getElementById("loan_no").addEventListener("blur", function(){
   switch(branch_code) {
 
     case '1':
-	branch_pre = "1GOB";
+	branch_pre = "1";
 	break;
     case '3':
-	branch_pre = "3POL";
+	branch_pre = "3";
 	break;
     case '4':
-	branch_pre = "4CBE";
+	branch_pre = "4";
 	break;
     case '5':
-	branch_pre = "5TPR";
+	branch_pre = "5";
 	break;
     case '6':
-	branch_pre = "6ERD";
+	branch_pre = "6";
 	break;
     case '7':
-	branch_pre = "7DGL";
+	branch_pre = "7";
 	break;
     case '8':
-	branch_pre = "8KRR";
+	branch_pre = "8";
 	break;
     default:
-	branch_pre = "2MLR";
+	branch_pre = "2";
   }
-  document.getElementById("branch").value = branch_pre;
+  const select_branch = document.getElementById("branch");
+  select_branch.SelectedIndex = branch_pre;
+  console.log(select_branch.textContent);
 });

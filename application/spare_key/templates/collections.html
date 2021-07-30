@@ -5,10 +5,9 @@
 <div class="container-fluid">
   <div class="collections-table">
     <h3>Collections</h3>
-    <table class="table table-success table-striped mt-4 mb-5">
-      <tr>
-        <th>Branch</th>
-        <th>ID</th>
+    <table class="table table-success table-striped mt-4 mb-5 text-center">
+      <tr class="text-center justify-content-center">
+        <th class="text-center">Branch</th>
         <th>Loan No</th>
         <th>Name</th>
         <th>Expected DOR</th>
@@ -18,32 +17,54 @@
       {% for key in all_keys %}
         <tr>
         <td>{{ key.branch }}</td>
-        <td>{{ key.id }}</td>
         <td>{{ key.loan_no }}</td>
         <td>{{ key.name }}</td>
         <td>{{ key.expected_date_of_return }}</td>
         <td>{{ key.remarks }}</td>
         <td>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <form method="POST" action="" class="mx-3">
-            {{ inward_form.csrf_token() }}
-            {{ inward_form.inward(class="btn btn-primary") }}
-            {{ inward_form.key_id(value=key.id) }}
-          </form>
           <form method="POST" action="">
-            {{ reassign_form.csrf_token }}
+            {{ reassign_form.hidden_tag() }}
             {{ reassign_form.recepient }}
             {{ reassign_form.key_id(value=key.id) }}
             {{ reassign_form.submit(class="btn btn-primary") }}
           </form>
-        </div>
         </td>
        </tr>
+            {{ key.id }}
         {% endfor %}
     </table>
   </div>
   <div class="field-table">
     <h3>Field Officers</h3>
+    <table class="table table-success table-striped mt-4 mb-5 text-center">
+       <tr class="text-center justify-content-center">
+         <th class="text-center">Branch</th>
+         <th>Loan No</th>
+         <th>Name</th>
+         <th>Expected DOR</th>
+         <th>Remarks</th>
+         <th>Action</th>
+       </tr>
+       {% for key in keys_with_field_officers %}
+         <tr>
+          <td>{{ key.branch }}</td>
+          <td>{{ key.loan_no }}</td>
+          <td>{{ key.name }}</td>
+          <td>{{ key.expected_date_of_return }}</td>
+          <td>{{ key.remarks }}</td>
+          <td>
+            <form method="POST" action="" class="mx-3">
+              {{ inward_form.hidden_tag() }}
+              {{ inward_form.inward(class="btn btn-primary") }}
+              {{ inward_form.key_id(value=key.id) }}
+            </form>
+          </td>
+         </tr>
+        {% endfor %}
+      </table>
+
+      <p>{{ reassign_form.errors }}</p>
+
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, IntegerField, HiddenField
-from wtforms.validators import Required
+from wtforms.validators import InputRequired
 from wtforms.fields.html5 import DateField
 #from .functions import get_recepients
 
@@ -18,23 +18,19 @@ class AddSpareKey(FlaskForm):
 
     print(branches_tuple)
 
-    branch = StringField("Branch", validators=[Required()])
-    loan_no = StringField("Loan No", validators=[Required()])
-    name = StringField("Name",validators=[Required()])
+    branch = SelectField("Branch", validators=[InputRequired()], choices=branches)
+    loan_no = StringField("Loan No", validators=[InputRequired(message="Please Enter Loan Number")])
+    name = StringField("Name",validators=[InputRequired(message="Please Enter Name")])
     recepient = SelectField("Recepient", choices=recepients)
-    expected_date_of_return = DateField("Expected Date of Return", format="%Y-%m-%d", validators=[Required()])
+    expected_date_of_return = DateField("Expected Date of Return", format="%Y-%m-%d", validators=[InputRequired()])
     remarks = StringField("Remarks")
     submit = SubmitField("Submit")
 
 
-class ReassignSpareKey(FlaskForm):
-
-    recepient = SelectField(choices=recepients)
-
-
 class AddFieldOfficer(FlaskForm):
 
-    name = StringField("Name", validators=[Required()])
+    name = StringField("Name", validators=[InputRequired(message="Please Enter a Name")])
+    submit = SubmitField("Add")
 
 
 class ChangeDefaultDays(FlaskForm):
@@ -51,6 +47,6 @@ class InwardKey(FlaskForm):
 class ReassignKey(FlaskForm):
 
     field_officers = [("", "Select"),("Rajkumar", "Rajkumar"), ("Kalidhas", "kalidhas"), ("Mani", "Mani")]
-    recepient = SelectField("Recepient", choices=field_officers)
-    key_id = HiddenField()
+    recepient = SelectField("Recepient", choices=field_officers, validators=[InputRequired(message="Please select recepient")])
     submit = SubmitField("Reassign")
+    key_id = HiddenField()

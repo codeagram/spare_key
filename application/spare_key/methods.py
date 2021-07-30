@@ -42,6 +42,45 @@ class SpareKey:
 
         return pending_keys
 
+    def get_keys_with_collections(self):
+
+        all_keys = spare_key.query.filter_by(recepient="Collections", is_active=True).all()
+
+        db.session.close()
+
+        return all_keys
+
+    def get_keys_with_all_field_officers(self):
+
+        all_keys = spare_key.query.filter(spare_key.recepient!="Collections").all()
+
+        keys = []
+        for k in all_keys:
+            if k.is_active==True:
+                keys.append(k)
+
+        db.session.close()
+
+        return keys
+
+    def get_keys_with_a_field_officer(self, field_officer):
+
+        all_keys = spare_key.query.filter_by(recepient=field_officer, is_active=True).all()
+
+        db.session.close()
+
+        return all_keys
+
+    def check_key(self, loan_no):
+
+        key = spare_key.query.filter_by(loan_no=loan_no).all()
+
+        for k in key:
+            if k.is_active == True:
+                return True
+
+        return False
+
 
 class MakeInward:
 
@@ -98,7 +137,7 @@ class Collections:
 
     def all_keys(self):
 
-        keys = spare_key.query.filter_by(recepient="Collections").all()
+        keys = spare_key.query.filter_by(recepient="Collections", is_active=True).all()
 
         db.session.close()
 
