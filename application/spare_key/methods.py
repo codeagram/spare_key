@@ -81,6 +81,38 @@ class SpareKey:
 
         return False
 
+    def make_inward(self, key_id):
+
+        key = spare_key.query.filter_by(id=key_id).first()
+
+        key.is_active = False
+        key.inward_date = datetime.today()
+
+        db.session.add(key)
+        db.session.commit()
+        db.session.close()
+
+    def reassign_key(self, key_id, recepient):
+
+        key = spare_key.query.filter_by(id=key_id).first()
+        print(key.name)
+
+        key.recepient = recepient
+
+        db.session.add(key)
+        db.session.commit()
+        db.session.close()
+
+    def inward_to_collections(self, key_id):
+
+        key = spare_key.query.filter_by(id=key_id).first()
+
+        key.recepient = "Collections"
+        key.inward_date = datetime.today()
+
+        db.session.add(key)
+        db.session.commit()
+        db.session.close()
 
 class MakeInward:
 
@@ -119,10 +151,11 @@ class ReassignKey:
     def __init__(self, key_id, recepient):
 
         self.key_id = key_id
+        self.recepient = recepient
 
         key = spare_key.query.filter_by(id=self.key_id).first()
 
-        key.recepient = recepient
+        key.recepient = self.recepient
 
         db.session.add(key)
         db.session.commit()

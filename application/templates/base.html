@@ -52,9 +52,15 @@
             {% endif %}
           {% endwith %}
         </div>
+        <div class="body">
 
-      {% block content %} {% endblock %}
+        {% block content %} {% endblock %}
 
+        </div>
+
+      <div class="footer bg-dark text-center text-white">
+        2021 &copy; Copyright
+      </div>
 
       <script src="{{url_for('static', filename='js/bootstrap.min.js') }}"></script>
       <!--script defer src="{{url_for('static', filename='js/script.js') }}"></script-->

@@ -46,6 +46,7 @@ def add():
 def collections():
 
     inward_form=InwardKey()
+    reassign_form=ReassignKey()
 
     if inward_form.validate_on_submit():
         print("Inward")
@@ -55,6 +56,17 @@ def collections():
 
         return redirect(url_for("SpareKeyBP.collections"))
 
+    keys = SpareKey()
+    all_keys = keys.get_keys_with_collections()
+
+    keys_with_field_officers = keys.get_keys_with_all_field_officers()
+
+    return render_template("collections.html", all_keys=all_keys, keys_with_field_officers=keys_with_field_officers, inward_form=inward_form, reassign_form=reassign_form)
+
+
+@SpareKeyBP.route("/reassign", methods=["POST"])
+def reassign():
+
     reassign_form=ReassignKey()
 
     if reassign_form.validate_on_submit():
@@ -63,17 +75,12 @@ def collections():
         recepient = reassign_form.recepient.data
         print(key_id)
         print(recepient)
-        ReassignKey(key_id, recepient)
+        key = SpareKey()
+        key.reassign_key(key_id, recepient)
 
         return redirect(url_for("SpareKeyBP.collections"))
 
-    keys = SpareKey()
-    all_keys = keys.get_keys_with_collections()
-
-    keys_with_field_officers = keys.get_keys_with_all_field_officers()
-
-
-    return render_template("collections.html", all_keys=all_keys, keys_with_field_officers=keys_with_field_officers, inward_form=inward_form, reassign_form=reassign_form)
+    return redirect(url_for("SpareKeyBP.collections"))
 
 
 @SpareKeyBP.route("/reports", methods=["GET", "POST"])
@@ -86,8 +93,15 @@ def reports():
 
     if form.validate_on_submit():
         key_id = form.key_id.data
-        inward = MakeInward(key_id)
+        key = SpareKey()
+        key.make_inward(key_id)
 
         return redirect(url_for("SpareKeyBP.reports"))
 
     return render_template("reports.html", all_keys=all_keys, form=form)
+
+
+@SpareKeyBP.route("/settings")
+def settings():
+
+    return render_template("settings.html")

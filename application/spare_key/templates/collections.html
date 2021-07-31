@@ -22,8 +22,8 @@
         <td>{{ key.expected_date_of_return }}</td>
         <td>{{ key.remarks }}</td>
         <td>
-          <form method="POST" action="">
-            {{ reassign_form.hidden_tag() }}
+          <form method="POST" action="/reassign">
+            {{ reassign_form.csrf_token() }}
             {{ reassign_form.recepient }}
             {{ reassign_form.key_id(value=key.id) }}
             {{ reassign_form.submit(class="btn btn-primary") }}
@@ -54,7 +54,7 @@
           <td>{{ key.remarks }}</td>
           <td>
             <form method="POST" action="" class="mx-3">
-              {{ inward_form.hidden_tag() }}
+              {{ inward_form.csrf_token() }}
               {{ inward_form.inward(class="btn btn-primary") }}
               {{ inward_form.key_id(value=key.id) }}
             </form>
