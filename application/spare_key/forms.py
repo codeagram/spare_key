@@ -1,13 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField, IntegerField, HiddenField
+from wtforms import StringField, DateField, SelectField, SubmitField, IntegerField, HiddenField
 from wtforms.validators import InputRequired
 from wtforms.fields.html5 import DateField
-#from .functions import get_recepients
-from .methods import GetFieldOfficers
+from application.admin.models import FieldOfficer, get_field_officers
 
 
 branches = ["1GOB", "2MLR", "3POL", "4CBE", "5TPR", "6ERD", "7DG", "8KRR"]
-#recepients = get_recepients()
 
 recepients = [("Collections", "Collections")]
 
@@ -20,6 +18,7 @@ class AddSpareKey(FlaskForm):
     print(branches_tuple)
 
     branch = SelectField("Branch", validators=[InputRequired()], choices=branches)
+    today = DateField("Today Date")
     loan_no = StringField("Loan No", validators=[InputRequired(message="Please Enter Loan Number")])
     name = StringField("Name",validators=[InputRequired(message="Please Enter Name")])
     recepient = SelectField("Recepient", choices=recepients)
@@ -47,8 +46,7 @@ class InwardKey(FlaskForm):
 
 class ReassignKey(FlaskForm):
 
-    fo = GetFieldOfficers()
-    field_officers = fo.get_all()
+    field_officers = get_field_officers()
 
     key_id = HiddenField()
     recepient = SelectField("Recepient", choices=field_officers, validators=[InputRequired(message="Please select recepient")])

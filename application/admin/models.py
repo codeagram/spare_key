@@ -55,3 +55,14 @@ class FieldOfficer(db.Model):
         db.session.close
 
         return fo
+
+def get_field_officers():
+
+    fo = FieldOfficer()
+    field = fo.get_all_field_officers()
+    field_officers = ["Select"]
+
+    for f in field:
+        field_officers.append(f.name)
+
+    return field_officers

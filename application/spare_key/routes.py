@@ -1,15 +1,16 @@
 from . import SpareKeyBP
 from flask import Flask, render_template, redirect, url_for, flash, request
 from .forms import AddSpareKey, InwardKey, ReassignKey
-from .methods import SpareKey, MakeInward, InwardToCollection, Collections
 from sqlalchemy.exc import IntegrityError
+from .models import SpareKey, add_spare_key, get_keys_with_field_officers
+from datetime import date
 
 
 @SpareKeyBP.route("/")
 def index():
 
     key = SpareKey()
-    pending_keys = key.get_pending_keys()
+    pending_keys = key.get_keys_older_than_default_time()
 
     return render_template("index.html", pending_keys=pending_keys)
 
@@ -26,11 +27,11 @@ def add():
 
         if is_exists == False:
 
-            sparekey.add(branch=form.branch.data,
+            add_spare_key(branch=form.branch.data,
+                        added_date=form.today.data,
                         loan_no=form.loan_no.data,
                         name=form.name.data,
                         recepient=form.recepient.data,
-                        expected_date_of_return=form.expected_date_of_return.data,
                         remarks=form.remarks.data)
             flash("Successfully Added", "success")
             return redirect(url_for("SpareKeyBP.add"))
@@ -47,19 +48,18 @@ def collections():
 
     inward_form=InwardKey()
     reassign_form=ReassignKey()
+    keys = SpareKey()
 
     if inward_form.validate_on_submit():
-        print("Inward")
         key_id = inward_form.key_id.data
-        print(key_id)
-        inward = InwardToCollection(key_id)
+        keys.inward_to_collections(key_id)
 
         return redirect(url_for("SpareKeyBP.collections"))
 
     keys = SpareKey()
     all_keys = keys.get_keys_with_collections()
 
-    keys_with_field_officers = keys.get_keys_with_all_field_officers()
+    keys_with_field_officers = get_keys_with_field_officers()
 
     return render_template("collections.html", all_keys=all_keys, keys_with_field_officers=keys_with_field_officers, inward_form=inward_form, reassign_form=reassign_form)
 
@@ -70,11 +70,8 @@ def reassign():
     reassign_form=ReassignKey()
 
     if reassign_form.validate_on_submit():
-        print("Reassign")
         key_id = reassign_form.key_id.data
         recepient = reassign_form.recepient.data
-        print(key_id)
-        print(recepient)
         key = SpareKey()
         key.reassign_key(key_id, recepient)
 
@@ -89,7 +86,7 @@ def reports():
     sparekey = SpareKey()
     form=InwardKey()
 
-    all_keys = sparekey.get_all_keys()
+    all_keys = sparekey.get_all_active_keys()
 
     if form.validate_on_submit():
         key_id = form.key_id.data

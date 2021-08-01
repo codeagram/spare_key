@@ -19,48 +19,41 @@ document.getElementById("loan_no").addEventListener("blur", function(){
   switch(branch_code) {
 
     case '1':
-	branch_pre = "1";
+	branch_pre = "0";
 	break;
     case '3':
-	branch_pre = "3";
+	branch_pre = "2";
 	break;
     case '4':
-	branch_pre = "4";
+	branch_pre = "3";
 	break;
     case '5':
-	branch_pre = "5";
+	branch_pre = "4";
 	break;
     case '6':
-	branch_pre = "6";
+	branch_pre = "5";
 	break;
     case '7':
-	branch_pre = "7";
+	branch_pre = "6";
 	break;
     case '8':
-	branch_pre = "8";
+	branch_pre = "7";
 	break;
     default:
-	branch_pre = "2";
+	branch_pre = "1";
   }
   const select_branch = document.getElementById("branch");
-  select_branch.SelectedIndex = branch_pre;
+  select_branch.selectedIndex = branch_pre;
   console.log(select_branch.textContent);
 });
 */
 
-function caluclateDays(date) {
-  const today = new date()
-  const diffInTime = today.getTime() - date.getTime();
-  const diffInDays = DiffInTime / (1000 * 3600 * 24);
-
-  return diffInDays;
-}
-/*
-function addDays() {
-
-  const cells = document.getElementById("day")
-  for cell in cells {
-    const day = cell.textContent;
-    const dayCount = calculateDays
-  }
-  */
+document.addEventListener("DOMContentLoaded", function() {
+  const today = new Date();
+  const d = String(today.getDate()).padStart(2, '0');
+  const m = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const y = today.getFullYear();
+  const today_date = y + '-' + m + '-'+ d;
+  console.log(today_date)
+  document.getElementById("today").value = today_date;
+});
