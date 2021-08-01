@@ -15,14 +15,11 @@ class AddSpareKey(FlaskForm):
     for branch in branches:
         branches_tuple.append((branch, branch))
 
-    print(branches_tuple)
-
     branch = SelectField("Branch", validators=[InputRequired()], choices=branches)
     today = DateField("Today Date")
     loan_no = StringField("Loan No", validators=[InputRequired(message="Please Enter Loan Number")])
     name = StringField("Name",validators=[InputRequired(message="Please Enter Name")])
     recepient = SelectField("Recepient", choices=recepients)
-    expected_date_of_return = DateField("Expected Date of Return", format="%Y-%m-%d", validators=[InputRequired()])
     remarks = StringField("Remarks")
     submit = SubmitField("Submit")
 

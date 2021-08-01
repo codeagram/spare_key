@@ -4,11 +4,16 @@ from .forms import AddSpareKey, InwardKey, ReassignKey
 from sqlalchemy.exc import IntegrityError
 from .models import SpareKey, add_spare_key, get_keys_with_field_officers
 from datetime import date
-from flask_login import login_required
+from flask_login import login_required, current_user
+from ..admin.models import Settings
 
 
 @SpareKeyBP.route("/")
+@login_required
 def index():
+
+    if current_user.role == "Collections":
+        return redirect(url_for("SpareKeyBP.collections"))
 
     key = SpareKey()
     pending_keys = key.get_keys_older_than_default_time()
@@ -16,9 +21,12 @@ def index():
     return render_template("index.html", pending_keys=pending_keys)
 
 
-@login_required
 @SpareKeyBP.route("/add", methods=["GET", "POST"])
+@login_required
 def add():
+
+    if current_user.role == "Collections":
+        return redirect(url_for("SpareKeyBP.collections"))
 
     form = AddSpareKey()
     sparekey = SpareKey()
@@ -31,8 +39,8 @@ def add():
 
             add_spare_key(branch=form.branch.data,
                         added_date=form.today.data,
-                        loan_no=form.loan_no.data,
-                        name=form.name.data,
+                        loan_no=form.loan_no.data.cap,
+                        name=form.name.data.title(),
                         recepient=form.recepient.data,
                         remarks=form.remarks.data)
             flash("Successfully Added", "success")
@@ -42,12 +50,17 @@ def add():
             flash("Allready Found a Key with same Loan Number", "error")
             return redirect(url_for("SpareKeyBP.add"))
 
-    return render_template("add.html", form=form)
+    default_days = Settings.query.filter_by(name="Default Days").first()
+
+    return render_template("add.html", form=form, default_days=default_days.value)
 
 
-@login_required
 @SpareKeyBP.route("/collections", methods=["GET", "POST"])
+@login_required
 def collections():
+
+    if current_user.role == "Documentation":
+        return redirect(url_for("SpareKeyBP.index"))
 
     inward_form=InwardKey()
     reassign_form=ReassignKey()
@@ -67,9 +80,12 @@ def collections():
     return render_template("collections.html", all_keys=all_keys, keys_with_field_officers=keys_with_field_officers, inward_form=inward_form, reassign_form=reassign_form)
 
 
-@login_required
 @SpareKeyBP.route("/reassign", methods=["POST"])
+@login_required
 def reassign():
+
+    if current_user.role == "Documentation":
+        return redirect(url_for("SpareKeyBP.collections"))
 
     reassign_form=ReassignKey()
 
@@ -84,9 +100,12 @@ def reassign():
     return redirect(url_for("SpareKeyBP.collections"))
 
 
-@login_required
 @SpareKeyBP.route("/reports", methods=["GET", "POST"])
+@login_required
 def reports():
+
+    if current_user.role == "Collections":
+        return redirect(url_for("SpareKeyBP.collections"))
 
     sparekey = SpareKey()
     form=InwardKey()

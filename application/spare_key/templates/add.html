@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<div class="add-form mt-5">
+<div class="add-form p-2">
+  <div class="card">
+    <div class="card-body shadow-lg">
+      <p class="fw-bold">Note: Default Expected Date of Return value is: {{default_days}}</p>
   <form method="POST" action="" class="form-group">
     {{ form.csrf_token() }}
     {{ form.branch.label(class="form-label") }}
@@ -15,15 +18,14 @@
     {{ form.today(class="form-control", id="today") }}
     {{ form.recepient.label(class="form-label") }}
     {{ form.recepient(class="form-control", readonly="readonly") }}
-    {{ form.expected_date_of_return.label(class="form-label") }}
-    {{ form.expected_date_of_return(class="form-control") }}
     {{ form.remarks.label(class="form-label") }}
     {{ form.remarks(class="form-control") }}
     <div class="mt-5">
       {{ form.submit(class="btn btn-primary") }}
     </div>
   </form>
-  {{ form.errors }}
+    </div>
+  </div>
 </div>
 
 {% endblock %}

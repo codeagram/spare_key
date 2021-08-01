@@ -1,14 +1,33 @@
+{% extends "base.html" %}
 {% block content %}
-<div class="container">
+<div class="container mt-5">
   <div class="login">
-    {{ form.hidden_tag() }}
+  <div class="card">
+  <div class="card-body shadow-lg">
+    <form method="POST" action="">
+    {{ form.csrf_token() }}
     {{ form.username.label(class="form-label") }}
     {{ form.username(class="form-control") }}
     {{ form.password.label(class="form-label") }}
     {{ form.password(class="form-control") }}
-    {{ form.remember_me(class="form-control") }}
+    {{ form.remember_me() }}
     {{ form.remember_me.label(class="form-label") }}
+    <div class="mt-5">
     {{ form.submit(class="btn btn-primary") }}
+    </div>
+    </form>
   </div>
+  </div>
+  </div>
+  {{ form.errors }}
 </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const nav = document.getElementById("navigation");
+      nav.remove();
+      document.body.style.backgroundColor = '#123456';
+    });
+
+  </script>
 {% endblock %}
+ Super()

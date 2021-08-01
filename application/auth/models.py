@@ -1,5 +1,6 @@
 from application import db, login_manager
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(UserMixin, db.Model):
@@ -11,18 +12,17 @@ class User(UserMixin, db.Model):
     """
 
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(128), unique=True, nullable=False)
+    username = db.Column(db.String(128), unique=True, nullable=False)
     password_hash = db.Column(db.String(264))
-    role = db.Column(db.Integer(), nullable=False)
-    team = db.Column(db.Integer(), nullable=False)
+    role = db.Column(db.String(32), nullable=False)
 
-    def set_password_hash(self, password):
+    def set_password(self, password):
 
-        self.pasword_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
 
-        return check_password_hash(password, self.password_hash)
+        return check_password_hash(self.password_hash, password)
 
     def set_role(self, role):
 
@@ -30,8 +30,12 @@ class User(UserMixin, db.Model):
 
     def change_password(self, old_password, new_password):
 
-        if self.check_password(old_password, self.password_hash):
+        if self.check_password(old_password):
             self.set_password(new_password)
+
+        db.session.add(self)
+        db.session.commit()
+        db.session.close()
 
 
 @login_manager.user_loader

@@ -2,21 +2,38 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container settings">
+  <div class="card">
+    <div class="card-body shadow-lg">
+      <h3 class="title">Change a Setting</h3>
   <form method="POST" action="">
     {{ change_setting_form.csrf_token() }}
     {{ change_setting_form.name.label(class="form-label") }}
     {{ change_setting_form.name(class="form-control") }}
-    {{ change_setting_form.value.label(class="form-control") }}
+    {{ change_setting_form.value.label(class="form-label") }}
     {{ change_setting_form.value(class="form-control") }}
-    {{ change_setting_form.submit(class="btn btn-primary")}}
+    {{ change_setting_form.submit(class="btn btn-primary mt-3")}}
   </form>
+  <h3 class="title">Add a Field Officer</h3>
   <form method="POST" action="">
     {{ add_field_officer.csrf_token() }}
     {{ add_field_officer.name.label(class="form-label") }}
     {{ add_field_officer.name(class="form-control") }}
-    {{ add_field_officer.submit(class="btn btn-primary") }}
+    {{ add_field_officer.submit(class="btn btn-primary mt-3") }}
   </form>
+  <h3 class="title">Add a User</h3>
+  <form method="POST" action="">
+    {{ add_user.csrf_token() }}
+    {{ add_user.username.label(class="form-label") }}
+    {{ add_user.username(class="form-control") }}
+    {{ add_user.password.label(class="form-label") }}
+    {{ add_user.password(class="form-control") }}
+    {{ add_user.role.label(class="form-label") }}
+    {{ add_user.role(class="form-control") }}
+    {{ add_user.submit(class="btn btn-primary mt-3") }}
+  </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

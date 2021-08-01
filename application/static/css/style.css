@@ -4,5 +4,22 @@
 }
 
 .body {
-  height: 90vh;
+  min-height: 90vh;
+}
+
+.coll-table, .field-table {
+  min-height: 50vh;
+  overflow-y: scroll;
+}
+
+.login, .settings, .changePass {
+  height: 50%;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.title {
+  text-decoration: underline;
+  text-decoration-style: double;
+  text-decoration-color: #009900;
 }
