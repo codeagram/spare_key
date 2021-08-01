@@ -15,10 +15,7 @@ def login():
             return redirect(url_for("SpareKeyBP.index"))
 
     form = LoginForm()
-    if form.is_submitted():
-        print("Submit")
     if form.validate_on_submit():
-        print("Valid")
         user = User.query.filter_by(username=form.username.data).first()
 
         if user is None or not user.check_password(form.password.data):
