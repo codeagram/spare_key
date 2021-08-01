@@ -3,6 +3,7 @@ from wtforms import StringField, SelectField, SubmitField, IntegerField, HiddenF
 from wtforms.validators import InputRequired
 from wtforms.fields.html5 import DateField
 #from .functions import get_recepients
+from .methods import GetFieldOfficers
 
 
 branches = ["1GOB", "2MLR", "3POL", "4CBE", "5TPR", "6ERD", "7DG", "8KRR"]
@@ -46,7 +47,9 @@ class InwardKey(FlaskForm):
 
 class ReassignKey(FlaskForm):
 
-    field_officers = [("", "Select"),("Rajkumar", "Rajkumar"), ("Kalidhas", "kalidhas"), ("Mani", "Mani")]
+    fo = GetFieldOfficers()
+    field_officers = fo.get_all()
+
     key_id = HiddenField()
     recepient = SelectField("Recepient", choices=field_officers, validators=[InputRequired(message="Please select recepient")])
     submit = SubmitField("Reassign")

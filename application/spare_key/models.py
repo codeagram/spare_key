@@ -15,3 +15,4 @@ class spare_key(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     added = db.Column(db.DateTime, default=datetime.now)
     updated = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    days = db.Column(db.String(32))

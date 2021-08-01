@@ -99,9 +99,3 @@ def reports():
         return redirect(url_for("SpareKeyBP.reports"))
 
     return render_template("reports.html", all_keys=all_keys, form=form)
-
-
-@SpareKeyBP.route("/settings")
-def settings():
-
-    return render_template("settings.html")

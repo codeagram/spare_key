@@ -1,6 +1,7 @@
 from application import db
 from .models import spare_key
 from datetime import timedelta, datetime
+from application.admin.models import FieldOfficer
 
 
 class SpareKey:
@@ -171,7 +172,40 @@ class Collections:
     def all_keys(self):
 
         keys = spare_key.query.filter_by(recepient="Collections", is_active=True).all()
+        spare_keys = updates_days(keys)
 
         db.session.close()
 
-        return keys
+        return spare_keys
+
+
+class GetFieldOfficers:
+
+    def __init__(self):
+
+        pass
+
+    def get_all(self):
+
+        field_officers = [("", "Select")]
+
+        fo = FieldOfficer()
+        field = fo.get_all_field_officers()
+        for f in field:
+            field_officers.append((f.name, f.name))
+
+        return field_officers
+
+
+def update_days(spare_keys):
+
+    for key in spare_keys:
+        key.days = datetime.today() - key.added
+        print(key.days)
+        print(key.added)
+        db.session.add(key)
+
+    db.session.commit()
+    db.session.close()
+
+    return spare_keys()

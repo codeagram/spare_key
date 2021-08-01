@@ -1,6 +1,6 @@
 "use strict";
 
-
+/*
 document.getElementById("branch").disabled = true;
 document.getElementById("loan_no").addEventListener("blur", function(){
   const loan_number = document.getElementById("loan_no").value;
@@ -46,3 +46,21 @@ document.getElementById("loan_no").addEventListener("blur", function(){
   select_branch.SelectedIndex = branch_pre;
   console.log(select_branch.textContent);
 });
+*/
+
+function caluclateDays(date) {
+  const today = new date()
+  const diffInTime = today.getTime() - date.getTime();
+  const diffInDays = DiffInTime / (1000 * 3600 * 24);
+
+  return diffInDays;
+}
+/*
+function addDays() {
+
+  const cells = document.getElementById("day")
+  for cell in cells {
+    const day = cell.textContent;
+    const dayCount = calculateDays
+  }
+  */

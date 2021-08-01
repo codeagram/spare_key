@@ -6,13 +6,13 @@
   <form method="POST" action="" class="form-group">
     {{ form.csrf_token() }}
     {{ form.branch.label(class="form-label") }}
-    {{ form.branch(class="form-control", id="branch") }}
+    {{ form.branch(class="form-control", id="branch", readonly=readonly) }}
     {{ form.loan_no.label(class="form-label") }}
     {{ form.loan_no(class="form-control") }}
     {{ form.name.label(class="form-label") }}
     {{ form.name(class="form-control") }}
     {{ form.recepient.label(class="form-label") }}
-    {{ form.recepient(class="form-control") }}
+    {{ form.recepient(class="form-control", readonly="readonly") }}
     {{ form.expected_date_of_return.label(class="form-label") }}
     {{ form.expected_date_of_return(class="form-control") }}
     {{ form.remarks.label(class="form-label") }}

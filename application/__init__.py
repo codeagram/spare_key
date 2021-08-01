@@ -20,7 +20,15 @@ migrate = Migrate(app, db)
 
 with app.app_context():
 
+
     from .spare_key import SpareKeyBP
+    from .admin import AdminBP
+
+
     app.register_blueprint(SpareKeyBP)
+    app.register_blueprint(AdminBP)
 
     db.create_all()
+    from application.admin.models import Settings
+    setting = Settings()
+    setting.add_setting()

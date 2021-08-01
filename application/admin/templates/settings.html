@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <form method="POST" action="">
+    {{ change_setting_form.csrf_token() }}
+    {{ change_setting_form.name.label(class="form-label") }}
+    {{ change_setting_form.name(class="form-control") }}
+    {{ change_setting_form.value.label(class="form-control") }}
+    {{ change_setting_form.value(class="form-control") }}
+    {{ change_setting_form.submit(class="btn btn-primary")}}
+  </form>
+  <form method="POST" action="">
+    {{ add_field_officer.csrf_token() }}
+    {{ add_field_officer.name.label(class="form-label") }}
+    {{ add_field_officer.name(class="form-control") }}
+    {{ add_field_officer.submit(class="btn btn-primary") }}
+  </form>
+</div>
+
+{% endblock %}
