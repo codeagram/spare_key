@@ -4,6 +4,7 @@ from .forms import AddSpareKey, InwardKey, ReassignKey
 from sqlalchemy.exc import IntegrityError
 from .models import SpareKey, add_spare_key, get_keys_with_field_officers
 from datetime import date
+from flask_login import login_required
 
 
 @SpareKeyBP.route("/")
@@ -15,6 +16,7 @@ def index():
     return render_template("index.html", pending_keys=pending_keys)
 
 
+@login_required
 @SpareKeyBP.route("/add", methods=["GET", "POST"])
 def add():
 
@@ -43,6 +45,7 @@ def add():
     return render_template("add.html", form=form)
 
 
+@login_required
 @SpareKeyBP.route("/collections", methods=["GET", "POST"])
 def collections():
 
@@ -64,6 +67,7 @@ def collections():
     return render_template("collections.html", all_keys=all_keys, keys_with_field_officers=keys_with_field_officers, inward_form=inward_form, reassign_form=reassign_form)
 
 
+@login_required
 @SpareKeyBP.route("/reassign", methods=["POST"])
 def reassign():
 
@@ -80,6 +84,7 @@ def reassign():
     return redirect(url_for("SpareKeyBP.collections"))
 
 
+@login_required
 @SpareKeyBP.route("/reports", methods=["GET", "POST"])
 def reports():
 

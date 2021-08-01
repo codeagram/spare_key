@@ -1,0 +1,14 @@
+{% block content %}
+<div class="container">
+  <div class="login">
+    {{ form.hidden_tag() }}
+    {{ form.username.label(class="form-label") }}
+    {{ form.username(class="form-control") }}
+    {{ form.password.label(class="form-label") }}
+    {{ form.password(class="form-control") }}
+    {{ form.remember_me(class="form-control") }}
+    {{ form.remember_me.label(class="form-label") }}
+    {{ form.submit(class="btn btn-primary") }}
+  </div>
+</div>
+{% endblock %}

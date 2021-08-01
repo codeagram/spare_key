@@ -1,0 +1,7 @@
+Spare key methods -
+
+  1.get all inactive keys
+  2.get all active keys
+  3.get keys with collections
+  4.get keys with all field officers
+  5.get keys with specific field officer

@@ -13,7 +13,6 @@
           <th>Expected DOR</th>
           <th>Remarks</th>
           <th>Key With</th>
-          <th>Days</th>
           <th>Action</th>
         </tr>
         {% for key in all_keys %}
@@ -25,7 +24,6 @@
         <td>{{ key.expected_date_of_return }}</td>
         <td>{{ key.remarks }}</td>
         <td>{{ key.recepient }}</td>
-        <td>calculateDays({{key.days}});</td>
         <td>
           <form method="POST">
             {{ form.csrf_token() }}

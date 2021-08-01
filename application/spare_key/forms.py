@@ -47,6 +47,7 @@ class InwardKey(FlaskForm):
 class ReassignKey(FlaskForm):
 
     field_officers = get_field_officers()
+    #field_officers = []
 
     key_id = HiddenField()
     recepient = SelectField("Recepient", choices=field_officers, validators=[InputRequired(message="Please select recepient")])

@@ -16,15 +16,6 @@ class SpareKey(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     added = db.Column(db.Date, default=date.today)
     updated = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
-    days = db.Column(db.Date())
-
-    def update_days(self):
-
-        keys = self.query.filter_by(is_active=True).all()
-        today = datetime.now()
-        for key in keys:
-            day_time = key.added - today
-            key.days = day_time.days
 
     def get_all_active_keys(self):
 
@@ -46,7 +37,11 @@ class SpareKey(db.Model):
 
         default_time = Settings.query.filter_by(name="Default Days").first()
 
-        keys = self.query.filter_by(self.days>=default_time.value).all()
+        if self.query.all() != None:
+            keys = SpareKey.query.filter(SpareKey.expected_date_of_return<=date.today()).all()
+
+        else:
+            keys = None
 
         db.session.close()
 

@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from application import db
 
+
 class Settings(db.Model):
 
     """
