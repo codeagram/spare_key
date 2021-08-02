@@ -27,7 +27,7 @@
             {{ reassign_form.csrf_token() }}
             {{ reassign_form.recepient }}
             {{ reassign_form.key_id(value=key.id) }}
-            {{ reassign_form.submit(class="btn btn-primary") }}
+            {{ reassign_form.submit(class="btn btn-primary action") }}
           </form>
         </td>
        </tr>
@@ -60,7 +60,7 @@
           <td>
             <form method="POST" action="" class="mx-3">
               {{ inward_form.csrf_token() }}
-              {{ inward_form.inward(class="btn btn-primary") }}
+              {{ inward_form.inward(class="btn btn-primary action") }}
               {{ inward_form.key_id(value=key.id) }}
             </form>
           </td>

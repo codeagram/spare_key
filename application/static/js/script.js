@@ -57,3 +57,20 @@ document.addEventListener("DOMContentLoaded", function() {
   console.log(today_date)
   document.getElementById("today").value = today_date;
 });
+
+const buttons = document.getElementsByClassname("action");
+
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function() {
+    event.preventDefault();
+    if confirm("Are You Sure?") {
+      return true;
+    }
+  }, false);
+}
+/*
+document.querySelectorAll('.action').forEach(item => {
+  item.addEventListener('click', event => {
+    return confirm("Are You Sure?", false);
+  })
+})*/
